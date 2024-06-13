@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
 const prendas = {
     "001": { precio: 1000, descripcion: "Prenda 001 - Descripción" },
     "01001": { precio: 17000, descripcion: "Clásica c/est. Bross" },
@@ -151,156 +150,81 @@ const prendas = {
     // ...agregar más prendas según sea necesario
     };
 
-    const buscarBtn = document.getElementById('buscar');
-    const codigoInput = document.getElementById('codigo');
-    const resultadosDiv = document.getElementById('resultados');
-    const historialDiv = document.getElementById('historial_list');
-    const limpiarHistorialBtn = document.getElementById('limpiar_historial');
-    const buscarCategoriaBtn = document.getElementById('buscar_categoria');
-    const categoriaSelect = document.getElementById('categoria');
-    const resultadosCategoriaDiv = document.getElementById('resultados_categoria');
+// Determinar la categoría automáticamente
+const categorias = {
+    "01": "Remeras",
+    "02": "Camisas",
+    "03": "Pantalones",
+    "04": "Buzos",
+    "05": "Chombas",
+    "06": "Camperas",
+    "07": "Perfumes, Gorras y Bufandas",
+    "08": "Cintos, Billeteras y Riñoneras",
+    "09": "Boxer, Medias y Soquetes",
+    "10": "Calzado y Zapatillas",
+    "11": "Mates, Termos, Bombillas y Canastas"
+};
 
-    function actualizarHistorial() {
-        const historial = JSON.parse(localStorage.getItem('historial')) || [];
-        historialDiv.innerHTML = '';
-        historial.forEach(item => {
-            const p = document.createElement('p');
-            p.innerHTML = `${item.codigo}: ${item.descripcion} <br>
-            <span>Crédito:</span> $${formatearNumero(item.credito)} <span>-20%:</span> $${formatearNumero(item.transferencia)} <span>-25%:</span> $${formatearNumero(item.efectivo)}`;
-            p.addEventListener('click', function() {
-                mostrarResultados(item.codigo);
-            });
-            historialDiv.appendChild(p);
-        });
+// Mostrar la fecha de la última actualización automáticamente
+const lastUpdate = new Date(document.lastModified);
+document.getElementById("last-update").textContent = `Última actualización: ${lastUpdate.toLocaleString("es-AR")}`;
+
+function consultarPrecio() {
+    const codigo = document.getElementById("codigo").value;
+    const producto = prendas[codigo];
+    if (producto) {
+        const precioCredito = producto.precio;
+        const precioDescuento20 = producto.precio * 0.8;
+        const precioDescuento25 = producto.precio * 0.75;
+        
+        document.getElementById("resultados").innerHTML = `
+            <p><strong>${codigo}: ${producto.descripcion}</strong></p>
+            <p>Crédito: $${precioCredito.toLocaleString("es-AR")}</p>
+            <p>-20%: $${precioDescuento20.toLocaleString("es-AR")}</p>
+            <p>-25%: $${precioDescuento25.toLocaleString("es-AR")}</p>
+        `;
+    } else {
+        document.getElementById("resultados").innerHTML = "<p>Producto no encontrado</p>";
     }
+}
 
-    function mostrarResultados(codigo) {
-        if (prendas[codigo]) {
-            const prenda = prendas[codigo];
-            const credito = prenda.precio;
-            const transferencia = credito * 0.8;
-            const efectivo = credito * 0.75;
-            codigoInput.value = codigo;
-            resultadosDiv.innerHTML = `
-                <p><strong>Descripción:</strong> ${prenda.descripcion}</p>
-                <p><strong>Crédito:</strong> $${formatearNumero(credito)} - <strong>Transferencia/Débito:</strong> $${formatearNumero(transferencia)} - <strong>Efectivo:</strong> $${formatearNumero(efectivo)}</p>
-                <p><strong>Cuotas Crédito:</strong> ${calcularCuotas(credito)}</p>
-            `;
-        } else {
-            resultadosDiv.innerHTML = '<p>Producto no encontrado</p>';
-        }
+function limpiarHistorial() {
+    document.getElementById("historial").innerHTML = "";
+}
+
+function toggleProductMenu() {
+    const productMenu = document.getElementById("product-menu");
+    productMenu.classList.toggle("hidden");
+    if (!productMenu.classList.contains("hidden")) {
+        displayProducts(Object.keys(prendas));
     }
+}
 
-    function formatearNumero(numero) {
-        return numero.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
+function displayProducts(codes) {
+    const productList = document.getElementById("product-list");
+    productList.innerHTML = codes.map(code => {
+        const producto = prendas[code];
+        const precioCredito = producto.precio;
+        const precioDescuento20 = producto.precio * 0.8;
+        const precioDescuento25 = producto.precio * 0.75;
+        
+        return `
+            <p>
+                <a href="#" onclick="consultarProducto('${code}')">${code}: ${producto.descripcion}</a>
+                Crédito: $${precioCredito.toLocaleString("es-AR")} -20%: $${precioDescuento20.toLocaleString("es-AR")} -25%: $${precioDescuento25.toLocaleString("es-AR")}
+            </p>
+        `;
+    }).join("");
+}
 
-    function calcularCuotas(valor) {
-        const cuotas = [];
-        for (let i = 1; i <= 6; i++) {
-            cuotas.push(`${i} cuota${i > 1 ? 's' : ''}: $${formatearNumero(valor / i)}`);
-        }
-        return cuotas.join(' - ');
-    }
+function consultarProducto(code) {
+    document.getElementById("codigo").value = code;
+    consultarPrecio();
+}
 
-    function buscarProducto(codigo) {
-        mostrarResultados(codigo);
-        if (prendas[codigo]) {
-            const prenda = prendas[codigo];
-            const credito = prenda.precio;
-            const transferencia = credito * 0.8;
-            const efectivo = credito * 0.75;
-            const historial = JSON.parse(localStorage.getItem('historial')) || [];
-            historial.push({
-                codigo,
-                descripcion: prenda.descripcion,
-                credito: credito,
-                transferencia: transferencia,
-                efectivo: efectivo
-            });
-            localStorage.setItem('historial', JSON.stringify(historial));
-            actualizarHistorial();
-        }
-    }
-
-    function buscarPorCategoria(categoria) {
-        const productosCategoria = Object.entries(prendas).filter(([codigo, prenda]) => codigo.startsWith(categoria));
-        if (productosCategoria.length > 0) {
-            let minPrecio = Infinity, maxPrecio = -Infinity;
-            let minProducto = null, maxProducto = null;
-            resultadosCategoriaDiv.innerHTML = '';
-
-            productosCategoria.forEach(([codigo, prenda]) => {
-                const credito = prenda.precio;
-                const transferencia = credito * 0.8;
-                const efectivo = credito * 0.75;
-
-                if (efectivo < minPrecio) {
-                    minPrecio = efectivo;
-                    minProducto = prenda;
-                }
-                if (efectivo > maxPrecio) {
-                    maxPrecio = efectivo;
-                    maxProducto = prenda;
-                }
-
-                const p = document.createElement('p');
-                p.innerHTML = `${codigo}: ${prenda.descripcion} <br>
-                <span>Crédito:</span> $${formatearNumero(credito)} <span>-20%:</span> $${formatearNumero(transferencia)} <span>-25%:</span> $${formatearNumero(efectivo)}`;
-                p.addEventListener('click', function() {
-                    mostrarResultados(codigo);
-                });
-                resultadosCategoriaDiv.appendChild(p);
-            });
-
-            resultadosCategoriaDiv.innerHTML = `
-                <p><strong>Precio más bajo:</strong> <br>
-                <span>Crédito:</span> $${formatearNumero(minProducto.precio)} <span>-20%:</span> $${formatearNumero(minProducto.precio * 0.8)} <span>-25%:</span> $${formatearNumero(minProducto.precio * 0.75)}</p>
-                <p><strong>Precio más alto:</strong> <br>
-                <span>Crédito:</span> $${formatearNumero(maxProducto.precio)} <span>-20%:</span> $${formatearNumero(maxProducto.precio * 0.8)} <span>-25%:</span> $${formatearNumero(maxProducto.precio * 0.75)}</p>
-                <button onclick="mostrarTodosProductos()">Ver Productos</button>
-            ` + resultadosCategoriaDiv.innerHTML;
-        } else {
-            resultadosCategoriaDiv.innerHTML = '<p>No se encontraron productos en esta categoría</p>';
-        }
-    }
-
-    function mostrarTodosProductos() {
-        const categoria = categoriaSelect.value;
-        if (!categoria) return;
-        resultadosCategoriaDiv.innerHTML = '';
-
-        const productosCategoria = Object.entries(prendas).filter(([codigo, prenda]) => codigo.startsWith(categoria));
-        productosCategoria.forEach(([codigo, prenda]) => {
-            const credito = prenda.precio;
-            const transferencia = credito * 0.8;
-            const efectivo = credito * 0.75;
-
-            const p = document.createElement('p');
-            p.innerHTML = `${codigo}: ${prenda.descripcion} <br>
-            <span>Crédito:</span> $${formatearNumero(credito)} <span>-20%:</span> $${formatearNumero(transferencia)} <span>-25%:</span> $${formatearNumero(efectivo)}`;
-            p.addEventListener('click', function() {
-                mostrarResultados(codigo);
-            });
-            resultadosCategoriaDiv.appendChild(p);
-        });
-    }
-
-    buscarBtn.addEventListener('click', function() {
-        const codigo = codigoInput.value.trim();
-        buscarProducto(codigo);
-    });
-
-    limpiarHistorialBtn.addEventListener('click', function() {
-        localStorage.removeItem('historial');
-        actualizarHistorial();
-    });
-
-    buscarCategoriaBtn.addEventListener('click', function() {
-        const categoria = categoriaSelect.value;
-        buscarPorCategoria(categoria);
-    });
-
-    actualizarHistorial();
-});
+function filterProducts() {
+    const category = document.getElementById("category-filter").value;
+    const filteredCodes = category === "all" ? Object.keys(prendas) : Object.keys(prendas).filter(code => code.startsWith(category));
+    displayProducts(filteredCodes);
+}
 
