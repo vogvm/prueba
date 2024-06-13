@@ -167,8 +167,8 @@ function buscarPrecios(codigo = null) {
         const precioCredito = prenda.precio;
         const descripcion = prenda.descripcion;
         const precioCuota = (precioCredito / 3).toFixed(2).replace('.', ',');
-        const precioTransferencia = formatearNumero((precioCredito * 0.80).toFixed(2));
-        const precioEfectivo = formatearNumero((precioCredito * 0.75).toFixed(2));
+        const precioTransferencia = (precioCredito * 0.80).toFixed(2).replace('.', ',');
+        const precioEfectivo = (precioCredito * 0.75).toFixed(2).replace('.', ',');
 
         resultadosDiv.innerHTML = `
             <p>${descripcion}</p>
@@ -176,8 +176,8 @@ function buscarPrecios(codigo = null) {
                 <p>Crédito: <strong>$${formatearNumero(precioCredito)}</strong></p>
                 <p class="cuota"><strong>3 de $${precioCuota}</strong></p>
             </div>
-            <p>Transferencia/Débito: <strong>$${precioTransferencia}</strong></p>
-            <p>Efectivo: <strong>$${precioEfectivo}</strong></p>
+            <p>Transferencia/Débito: <strong>$${formatearNumero(precioTransferencia)}</strong></p>
+            <p>Efectivo: <strong>$${formatearNumero(precioEfectivo)}</strong></p>
         `;
 
         // Agregar al historial de búsqueda
@@ -219,7 +219,11 @@ function mostrarHistorial() {
         historialDiv.appendChild(codigoLink);
 
         const precios = document.createElement('p');
-        precios.textContent = `$${formatearNumero(item.precioCredito)} -20%: $${formatearNumero(item.precioTransferencia)} -25%: $${formatearNumero(item.precioEfectivo)}`;
+        precios.innerHTML = `
+            <strong>Crédito:</strong> $${formatearNumero(item.precioCredito)} 
+            <strong>-20%:</strong> $${formatearNumero(item.precioTransferencia)} 
+            <strong>-25%:</strong> $${formatearNumero(item.precioEfectivo)}
+        `;
         historialDiv.appendChild(precios);
 
         historialDiv.appendChild(document.createElement('br'));
