@@ -27,21 +27,18 @@ h2 {
     font-size: 20px;
     margin-top: 20px;
     text-align: left;
-    display: inline-block;
-}
-
-.historial-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    text-align: left;
 }
 
 .input-group {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.input-group h2 {
+    margin: 0;
+    padding: 10px;
+    font-size: 16px;
 }
 
 input {
@@ -70,7 +67,7 @@ button {
 }
 
 #resultados .credito p {
-    margin-bottom: 5px; /* Reduce el espacio entre el precio total y las cuotas */
+    margin-bottom: 5px;
 }
 
 #resultados p.cuota {
@@ -91,19 +88,20 @@ button {
     text-decoration: none;
     color: blue;
     cursor: pointer;
-    display: block; /* Esto hace que cada enlace ocupe un espacio completo */
-    margin-bottom: 5px; /* Agrega espacio entre cada enlace */
+    display: block;
+    margin-bottom: 5px;
 }
 
 #historial p {
-    margin: 5px 0 10px; /* Aumenta el espacio entre el enlace y los precios */
-    font-size: 14px; /* Reduce el tamaño de la fuente de los precios */
-    text-align: justify; /* Alinea el texto justificado */
+    margin: 5px 0 10px;
+    font-size: 14px;
+    text-align: justify;
 }
 
 .btn-limpiar {
     margin: 0;
     padding: 10px;
     font-size: 12px;
-    height: fit-content; /* Ajusta el tamaño del botón */
+    height: fit-content;
+    width: auto;
 }
