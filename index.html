@@ -7,41 +7,37 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="last-update" id="last-update"></div>
     <div class="container">
-        <div class="last-update">
-            Última actualización: <span id="last-update"></span>
-        </div>
         <h1>Consulta de Precios</h1>
         <div class="input-group">
-            <input type="text" id="codigo" placeholder="Ingrese el código del producto">
+            <h2>Código:</h2>
+            <input type="text" id="codigo">
             <button onclick="consultarPrecio()">Consultar</button>
         </div>
         <div id="resultados"></div>
+        <h2>Historial</h2>
         <div id="historial"></div>
         <button class="btn-limpiar" onclick="limpiarHistorial()">Limpiar Historial</button>
     </div>
-
-    <div class="container">
-        <button onclick="toggleProductMenu()">Mostrar/Ocultar Productos</button>
-        <div id="product-menu" class="hidden">
-            <select id="category-filter" onchange="filterProducts()">
-                <option value="all">Todas las categorías</option>
-                <option value="01">Remeras</option>
-                <option value="02">Camisas</option>
-                <option value="03">Pantalones</option>
-                <option value="04">Buzos</option>
-                <option value="05">Chombas</option>
-                <option value="06">Camperas</option>
-                <option value="07">Perfumes, Gorras y Bufandas</option>
-                <option value="08">Cintos, Billeteras y Riñoneras</option>
-                <option value="09">Boxer, Medias y Soquetes</option>
-                <option value="10">Calzado y Zapatillas</option>
-                <option value="11">Mates, Termos, Bombillas y Canastas</option>
-            </select>
-            <div id="product-list"></div>
-        </div>
+    <button onclick="toggleProductMenu()">Mostrar Productos</button>
+    <div id="product-menu" class="hidden">
+        <select id="category-filter" onchange="filterProducts()">
+            <option value="all">Todas las categorías</option>
+            <option value="01">Remeras</option>
+            <option value="02">Camisas</option>
+            <option value="03">Pantalones</option>
+            <option value="04">Buzos</option>
+            <option value="05">Chombas</option>
+            <option value="06">Camperas</option>
+            <option value="07">Perfumes, Gorras y Bufandas</option>
+            <option value="08">Cintos, Billeteras y Riñoneras</option>
+            <option value="09">Boxer, Medias y Soquetes</option>
+            <option value="10">Calzado y Zapatillas</option>
+            <option value="11">Mates, Termos, Bombillas y Canastas</option>
+        </select>
+        <div id="product-list"></div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
