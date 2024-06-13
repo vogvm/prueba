@@ -181,18 +181,18 @@ function buscarPrecios(codigo = null) {
         `;
 
         // Agregar al historial de búsqueda
-        agregarAlHistorial(codigo, descripcion);
+        agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo);
     } else {
         resultadosDiv.innerHTML = '<p>Prenda no encontrada</p>';
     }
 }
 
 // Función para agregar al historial de búsqueda
-function agregarAlHistorial(codigo, descripcion) {
+function agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo) {
     let historial = JSON.parse(localStorage.getItem('historial')) || [];
 
     // Agregar el nuevo elemento al principio del historial
-    historial.unshift({ codigo, descripcion });
+    historial.unshift({ codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo });
 
     // Guardar el historial actualizado en localStorage
     localStorage.setItem('historial', JSON.stringify(historial));
@@ -212,10 +212,24 @@ function mostrarHistorial() {
         const codigoLink = document.createElement('a');
         codigoLink.href = '#';
         codigoLink.textContent = `${item.codigo}: ${item.descripcion}`;
-        codigoLink.onclick = () => buscarPrecios(item.codigo);
+        codigoLink.onclick = () => {
+            document.getElementById('codigo').value = item.codigo;
+            buscarPrecios(item.codigo);
+        };
         historialDiv.appendChild(codigoLink);
+
+        const precios = document.createElement('p');
+        precios.textContent = `$${formatearNumero(item.precioCredito)} -20%: $${formatearNumero(item.precioTransferencia)} -25%: $${formatearNumero(item.precioEfectivo)}`;
+        historialDiv.appendChild(precios);
+
         historialDiv.appendChild(document.createElement('br'));
     });
+}
+
+// Función para limpiar el historial de búsqueda
+function limpiarHistorial() {
+    localStorage.removeItem('historial');
+    mostrarHistorial();
 }
 
 // Mostrar el historial al cargar la página
