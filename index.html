@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Precio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Consultar Precio</h1>
+        <div class="input-group">
+            <input type="number" id="codigo" placeholder="Ingrese el código SIN /" onkeydown="if(event.key === 'Enter') buscarPrecios()">
+            <button onclick="buscarPrecios()">Buscar</button>
+        </div>
+        <div id="resultados"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
