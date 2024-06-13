@@ -27,6 +27,15 @@ h2 {
     font-size: 20px;
     margin-top: 20px;
     text-align: left;
+    display: inline-block;
+}
+
+.historial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    text-align: left;
 }
 
 .input-group {
@@ -89,10 +98,12 @@ button {
 #historial p {
     margin: 5px 0 10px; /* Aumenta el espacio entre el enlace y los precios */
     font-size: 14px; /* Reduce el tamaño de la fuente de los precios */
+    text-align: justify; /* Alinea el texto justificado */
 }
 
 .btn-limpiar {
-    margin-bottom: 20px;
+    margin: 0;
     padding: 10px;
-    font-size: 16px;
+    font-size: 12px;
+    height: fit-content; /* Ajusta el tamaño del botón */
 }
