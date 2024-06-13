@@ -23,86 +23,52 @@ h1 {
     font-size: 24px;
 }
 
-h2 {
-    font-size: 20px;
-    margin-top: 20px;
-    text-align: left;
-}
-
 .input-group {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 
-.input-group h2 {
-    margin: 0;
+input, select {
     padding: 10px;
-    font-size: 16px;
-}
-
-input {
-    padding: 20px;
-    margin: 10px;
-    width: 75%;
+    margin: 5px;
+    width: 70%;
     font-size: 16px;
 }
 
 button {
-    padding: 20px;
-    margin: 10px;
+    padding: 10px;
+    margin: 5px;
     width: 25%;
     font-size: 16px;
 }
 
-#resultados {
-    margin-top: 24px;
-    text-align: left;
-    font-size: 20px;
-}
-
-#resultados p {
-    display: flex;
-    justify-content: space-between;
-}
-
-#resultados .credito p {
-    margin-bottom: 5px;
-}
-
-#resultados p.cuota {
-    justify-content: flex-end;
-}
-
-#historial {
-    text-align: left;
+#resultados, #resultados_categoria, #historial_list {
     margin-top: 20px;
+    text-align: left;
     font-size: 16px;
 }
 
-#historial p {
-    margin: 5px 0;
+#historial h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#historial a {
-    text-decoration: none;
-    color: blue;
+#historial_list p, #resultados_categoria p {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
     cursor: pointer;
-    display: block;
-    margin-bottom: 5px;
 }
 
-#historial p {
-    margin: 5px 0 10px;
-    font-size: 14px;
-    text-align: justify;
+#historial_list p span, #resultados_categoria p span {
+    font-weight: bold;
 }
 
-.btn-limpiar {
-    margin: 0;
-    padding: 10px;
-    font-size: 12px;
-    height: fit-content;
-    width: auto;
-    margin-left: auto;
+.advanced-search {
+    margin-top: 20px;
 }
