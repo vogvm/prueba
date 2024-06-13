@@ -82,4 +82,17 @@ button {
     text-decoration: none;
     color: blue;
     cursor: pointer;
+    display: block; /* Esto hace que cada enlace ocupe un espacio completo */
+    margin-bottom: 5px; /* Agrega espacio entre cada enlace */
+}
+
+#historial p {
+    margin: 5px 0 10px; /* Aumenta el espacio entre el enlace y los precios */
+    font-size: 14px; /* Reduce el tamaño de la fuente de los precios */
+}
+
+.btn-limpiar {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
 }
