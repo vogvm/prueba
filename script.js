@@ -151,7 +151,7 @@ const prendas = {
 };
 
 function formatearNumero(numero) {
-    return new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(numero);
+    return new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(numero);
 }
 
 function buscarPrecios(codigo = null) {
@@ -164,18 +164,18 @@ function buscarPrecios(codigo = null) {
     if (prenda) {
         const precioCredito = prenda.precio;
         const descripcion = prenda.descripcion;
-        const precioCuota = formatearNumero((precioCredito / 3).toFixed(2));
-        const precioTransferencia = formatearNumero((precioCredito * 0.80).toFixed(2));
-        const precioEfectivo = formatearNumero((precioCredito * 0.75).toFixed(2));
+        const precioCuota = precioCredito / 3;
+        const precioTransferencia = precioCredito * 0.80;
+        const precioEfectivo = precioCredito * 0.75;
 
         resultadosDiv.innerHTML = `
             <p>${descripcion}</p>
             <div class="credito">
                 <p>Crédito: <strong>$${formatearNumero(precioCredito)}</strong></p>
-                <p class="cuota"><strong>3 de $${precioCuota}</strong></p>
+                <p class="cuota"><strong>3 de $${formatearNumero(precioCuota)}</strong></p>
             </div>
-            <p>Transferencia/Débito: <strong>$${precioTransferencia}</strong></p>
-            <p>Efectivo: <strong>$${precioEfectivo}</strong></p>
+            <p>Transferencia/Débito: <strong>$${formatearNumero(precioTransferencia)}</strong></p>
+            <p>Efectivo: <strong>$${formatearNumero(precioEfectivo)}</strong></p>
         `;
 
         agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo);
