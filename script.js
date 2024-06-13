@@ -172,13 +172,23 @@ function buscarPrecios(codigo = null) {
         const precioEfectivo = precioCredito * 0.75;
 
         resultadosDiv.innerHTML = `
-            <p>${descripcion}</p>
-            <div class="credito">
-                <p>Crédito: <strong>$${formatearNumero(precioCredito)}</strong></p>
-                <p class="cuota"><strong>3 de $${formatearNumero(precioCuota)}</strong></p>
+            <p class="descripcion">${descripcion}</p>
+            <div class="precio-item">
+                <span>Crédito:</span>
+                <span>$${formatearNumero(precioCredito)}</span>
             </div>
-            <p>Transferencia/Débito: <strong>$${formatearNumero(precioTransferencia)}</strong></p>
-            <p>Efectivo: <strong>$${formatearNumero(precioEfectivo)}</strong></p>
+            <div class="precio-item">
+                <span>3 de:</span>
+                <span>$${formatearNumero(precioCuota)}</span>
+            </div>
+            <div class="precio-item">
+                <span>Transferencia/Débito:</span>
+                <span>$${formatearNumero(precioTransferencia)}</span>
+            </div>
+            <div class="precio-item">
+                <span>Efectivo:</span>
+                <span>$${formatearNumero(precioEfectivo)}</span>
+            </div>
         `;
 
         agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo);
