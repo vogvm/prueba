@@ -150,12 +150,10 @@ const prendas = {
     // ...agregar más prendas según sea necesario
 };
 
-// Función para formatear los números
 function formatearNumero(numero) {
     return new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(numero);
 }
 
-// Función para mostrar resultados de búsqueda
 function buscarPrecios(codigo = null) {
     codigo = codigo || document.getElementById('codigo').value;
     const prenda = prendas[codigo];
@@ -166,9 +164,9 @@ function buscarPrecios(codigo = null) {
     if (prenda) {
         const precioCredito = prenda.precio;
         const descripcion = prenda.descripcion;
-        const precioCuota = (precioCredito / 3).toFixed(2).replace('.', ',');
-        const precioTransferencia = (precioCredito * 0.80).toFixed(2).replace('.', ',');
-        const precioEfectivo = (precioCredito * 0.75).toFixed(2).replace('.', ',');
+        const precioCuota = formatearNumero((precioCredito / 3).toFixed(2));
+        const precioTransferencia = formatearNumero((precioCredito * 0.80).toFixed(2));
+        const precioEfectivo = formatearNumero((precioCredito * 0.75).toFixed(2));
 
         resultadosDiv.innerHTML = `
             <p>${descripcion}</p>
@@ -176,32 +174,23 @@ function buscarPrecios(codigo = null) {
                 <p>Crédito: <strong>$${formatearNumero(precioCredito)}</strong></p>
                 <p class="cuota"><strong>3 de $${precioCuota}</strong></p>
             </div>
-            <p>Transferencia/Débito: <strong>$${formatearNumero(precioTransferencia)}</strong></p>
-            <p>Efectivo: <strong>$${formatearNumero(precioEfectivo)}</strong></p>
+            <p>Transferencia/Débito: <strong>$${precioTransferencia}</strong></p>
+            <p>Efectivo: <strong>$${precioEfectivo}</strong></p>
         `;
 
-        // Agregar al historial de búsqueda
         agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo);
     } else {
         resultadosDiv.innerHTML = '<p>Prenda no encontrada</p>';
     }
 }
 
-// Función para agregar al historial de búsqueda
 function agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo) {
     let historial = JSON.parse(localStorage.getItem('historial')) || [];
-
-    // Agregar el nuevo elemento al principio del historial
     historial.unshift({ codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo });
-
-    // Guardar el historial actualizado en localStorage
     localStorage.setItem('historial', JSON.stringify(historial));
-
-    // Mostrar el historial en la página
     mostrarHistorial();
 }
 
-// Función para mostrar el historial de búsqueda
 function mostrarHistorial() {
     const historialDiv = document.getElementById('historial');
     historialDiv.innerHTML = '';
@@ -230,11 +219,9 @@ function mostrarHistorial() {
     });
 }
 
-// Función para limpiar el historial de búsqueda
 function limpiarHistorial() {
     localStorage.removeItem('historial');
     mostrarHistorial();
 }
 
-// Mostrar el historial al cargar la página
 document.addEventListener('DOMContentLoaded', mostrarHistorial);
