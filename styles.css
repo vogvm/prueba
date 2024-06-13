@@ -104,4 +104,5 @@ button {
     font-size: 12px;
     height: fit-content;
     width: auto;
+    margin-left: auto;
 }
