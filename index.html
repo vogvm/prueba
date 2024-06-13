@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de Precios</title>
+    <title>Consultar Precio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="last-update" id="last-update"></div>
     <div class="container">
-        <h1>Consulta de Precios</h1>
+        <p id="ultima-actualizacion" class="fecha-actualizacion"></p>
+        <h1>Consultar Precio</h1>
         <div class="input-group">
-            <h2>Código:</h2>
-            <input type="text" id="codigo">
-            <button onclick="consultarPrecio()">Consultar</button>
+            <input type="number" id="codigo" placeholder="Ingrese el código SIN /" onkeydown="if(event.key === 'Enter') buscarPrecios()">
+            <button onclick="buscarPrecios()">Buscar</button>
         </div>
         <div id="resultados"></div>
-        <h2>Historial</h2>
+        <div class="input-group">
+            <h2>Historial de Búsqueda</h2>
+            <button onclick="limpiarHistorial()" class="btn-limpiar">Limpiar Historial</button>
+        </div>
         <div id="historial"></div>
-        <button class="btn-limpiar" onclick="limpiarHistorial()">Limpiar Historial</button>
-    </div>
-    <button onclick="toggleProductMenu()">Mostrar Productos</button>
-    <div id="product-menu" class="hidden">
-        <select id="category-filter" onchange="filterProducts()">
-            <option value="all">Todas las categorías</option>
-            <option value="01">Remeras</option>
-            <option value="02">Camisas</option>
-            <option value="03">Pantalones</option>
-            <option value="04">Buzos</option>
-            <option value="05">Chombas</option>
-            <option value="06">Camperas</option>
-            <option value="07">Perfumes, Gorras y Bufandas</option>
-            <option value="08">Cintos, Billeteras y Riñoneras</option>
-            <option value="09">Boxer, Medias y Soquetes</option>
-            <option value="10">Calzado y Zapatillas</option>
-            <option value="11">Mates, Termos, Bombillas y Canastas</option>
-        </select>
-        <div id="product-list"></div>
+        
+        <!-- Menú Desplegable -->
+        <div class="input-group">
+            <h2>Productos</h2>
+            <select id="categoria" onchange="filtrarProductos()">
+                <option value="all">Todas las categorías</option>
+                <option value="01">Remeras</option>
+                <option value="02">Camisas</option>
+                <option value="03">Pantalones</option>
+                <option value="04">Buzos</option>
+                <option value="05">Chombas</option>
+                <option value="06">Camperas</option>
+                <option value="07">Perfumes, Gorras y Bufandas</option>
+                <option value="08">Cintos, Billeteras y Riñoneras</option>
+                <option value="09">Boxer, Medias y Soquetes</option>
+                <option value="10">Calzado y Zapatillas</option>
+                <option value="11">Mates, Termos, Bombillas y Canastas</option>
+            </select>
+            <button onclick="toggleMenu()" class="btn-toggle">Mostrar/ocultar</button>
+        </div>
+        <div id="menuDesplegable" class="menu-desplegable"></div>
     </div>
     <script src="script.js"></script>
 </body>
