@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
 const prendas = {
     "001": { precio: 1000, descripcion: "Prenda 001 - Descripción" },
     "01001": { precio: 17000, descripcion: "Clásica c/est. Bross" },
@@ -148,80 +149,158 @@ const prendas = {
     "11010": { precio: 5500, descripcion: "Bombilla torneada" },
     "11011": { precio: 18625, descripcion: "Canasta" }
     // ...agregar más prendas según sea necesario
-};
+    };
 
-function formatearNumero(numero) {
-    return new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(numero);
-}
-
-function buscarPrecios(codigo = null) {
-    codigo = codigo || document.getElementById('codigo').value;
-    const prenda = prendas[codigo];
-
+    const buscarBtn = document.getElementById('buscar');
+    const codigoInput = document.getElementById('codigo');
     const resultadosDiv = document.getElementById('resultados');
-    resultadosDiv.innerHTML = '';
+    const historialDiv = document.getElementById('historial_list');
+    const limpiarHistorialBtn = document.getElementById('limpiar_historial');
+    const buscarCategoriaBtn = document.getElementById('buscar_categoria');
+    const categoriaSelect = document.getElementById('categoria');
+    const resultadosCategoriaDiv = document.getElementById('resultados_categoria');
 
-    if (prenda) {
-        const precioCredito = prenda.precio;
-        const descripcion = prenda.descripcion;
-        const precioCuota = precioCredito / 3;
-        const precioTransferencia = precioCredito * 0.80;
-        const precioEfectivo = precioCredito * 0.75;
-
-        resultadosDiv.innerHTML = `
-            <p>${descripcion}</p>
-            <div class="credito">
-                <p>Crédito: <strong>$${formatearNumero(precioCredito)}</strong></p>
-                <p class="cuota"><strong>3 de $${formatearNumero(precioCuota)}</strong></p>
-            </div>
-            <p>Transferencia/Débito: <strong>$${formatearNumero(precioTransferencia)}</strong></p>
-            <p>Efectivo: <strong>$${formatearNumero(precioEfectivo)}</strong></p>
-        `;
-
-        agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo);
-    } else {
-        resultadosDiv.innerHTML = '<p>Prenda no encontrada</p>';
+    function actualizarHistorial() {
+        const historial = JSON.parse(localStorage.getItem('historial')) || [];
+        historialDiv.innerHTML = '';
+        historial.forEach(item => {
+            const p = document.createElement('p');
+            p.innerHTML = `${item.codigo}: ${item.descripcion} <br>
+            <span>Crédito:</span> $${formatearNumero(item.credito)} <span>-20%:</span> $${formatearNumero(item.transferencia)} <span>-25%:</span> $${formatearNumero(item.efectivo)}`;
+            p.addEventListener('click', function() {
+                mostrarResultados(item.codigo);
+            });
+            historialDiv.appendChild(p);
+        });
     }
-}
 
-function agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo) {
-    let historial = JSON.parse(localStorage.getItem('historial')) || [];
-    historial.unshift({ codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo });
-    localStorage.setItem('historial', JSON.stringify(historial));
-    mostrarHistorial();
-}
+    function mostrarResultados(codigo) {
+        if (prendas[codigo]) {
+            const prenda = prendas[codigo];
+            const credito = prenda.precio;
+            const transferencia = credito * 0.8;
+            const efectivo = credito * 0.75;
+            codigoInput.value = codigo;
+            resultadosDiv.innerHTML = `
+                <p><strong>Descripción:</strong> ${prenda.descripcion}</p>
+                <p><strong>Crédito:</strong> $${formatearNumero(credito)} - <strong>Transferencia/Débito:</strong> $${formatearNumero(transferencia)} - <strong>Efectivo:</strong> $${formatearNumero(efectivo)}</p>
+                <p><strong>Cuotas Crédito:</strong> ${calcularCuotas(credito)}</p>
+            `;
+        } else {
+            resultadosDiv.innerHTML = '<p>Producto no encontrado</p>';
+        }
+    }
 
-function mostrarHistorial() {
-    const historialDiv = document.getElementById('historial');
-    historialDiv.innerHTML = '';
+    function formatearNumero(numero) {
+        return numero.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
 
-    const historial = JSON.parse(localStorage.getItem('historial')) || [];
+    function calcularCuotas(valor) {
+        const cuotas = [];
+        for (let i = 1; i <= 6; i++) {
+            cuotas.push(`${i} cuota${i > 1 ? 's' : ''}: $${formatearNumero(valor / i)}`);
+        }
+        return cuotas.join(' - ');
+    }
 
-    historial.forEach(item => {
-        const codigoLink = document.createElement('a');
-        codigoLink.href = '#';
-        codigoLink.textContent = `${item.codigo}: ${item.descripcion}`;
-        codigoLink.onclick = () => {
-            document.getElementById('codigo').value = item.codigo;
-            buscarPrecios(item.codigo);
-        };
-        historialDiv.appendChild(codigoLink);
+    function buscarProducto(codigo) {
+        mostrarResultados(codigo);
+        if (prendas[codigo]) {
+            const prenda = prendas[codigo];
+            const credito = prenda.precio;
+            const transferencia = credito * 0.8;
+            const efectivo = credito * 0.75;
+            const historial = JSON.parse(localStorage.getItem('historial')) || [];
+            historial.push({
+                codigo,
+                descripcion: prenda.descripcion,
+                credito: credito,
+                transferencia: transferencia,
+                efectivo: efectivo
+            });
+            localStorage.setItem('historial', JSON.stringify(historial));
+            actualizarHistorial();
+        }
+    }
 
-        const precios = document.createElement('p');
-        precios.innerHTML = `
-            <strong>Crédito:</strong> $${formatearNumero(item.precioCredito)} 
-            <strong>-20%:</strong> $${formatearNumero(item.precioTransferencia)} 
-            <strong>-25%:</strong> $${formatearNumero(item.precioEfectivo)}
-        `;
-        historialDiv.appendChild(precios);
+    function buscarPorCategoria(categoria) {
+        const productosCategoria = Object.entries(prendas).filter(([codigo, prenda]) => codigo.startsWith(categoria));
+        if (productosCategoria.length > 0) {
+            let minPrecio = Infinity, maxPrecio = -Infinity;
+            let minProducto = null, maxProducto = null;
+            resultadosCategoriaDiv.innerHTML = '';
 
-        historialDiv.appendChild(document.createElement('br'));
+            productosCategoria.forEach(([codigo, prenda]) => {
+                const credito = prenda.precio;
+                const transferencia = credito * 0.8;
+                const efectivo = credito * 0.75;
+
+                if (efectivo < minPrecio) {
+                    minPrecio = efectivo;
+                    minProducto = prenda;
+                }
+                if (efectivo > maxPrecio) {
+                    maxPrecio = efectivo;
+                    maxProducto = prenda;
+                }
+
+                const p = document.createElement('p');
+                p.innerHTML = `${codigo}: ${prenda.descripcion} <br>
+                <span>Crédito:</span> $${formatearNumero(credito)} <span>-20%:</span> $${formatearNumero(transferencia)} <span>-25%:</span> $${formatearNumero(efectivo)}`;
+                p.addEventListener('click', function() {
+                    mostrarResultados(codigo);
+                });
+                resultadosCategoriaDiv.appendChild(p);
+            });
+
+            resultadosCategoriaDiv.innerHTML = `
+                <p><strong>Precio más bajo:</strong> <br>
+                <span>Crédito:</span> $${formatearNumero(minProducto.precio)} <span>-20%:</span> $${formatearNumero(minProducto.precio * 0.8)} <span>-25%:</span> $${formatearNumero(minProducto.precio * 0.75)}</p>
+                <p><strong>Precio más alto:</strong> <br>
+                <span>Crédito:</span> $${formatearNumero(maxProducto.precio)} <span>-20%:</span> $${formatearNumero(maxProducto.precio * 0.8)} <span>-25%:</span> $${formatearNumero(maxProducto.precio * 0.75)}</p>
+                <button onclick="mostrarTodosProductos()">Ver Productos</button>
+            ` + resultadosCategoriaDiv.innerHTML;
+        } else {
+            resultadosCategoriaDiv.innerHTML = '<p>No se encontraron productos en esta categoría</p>';
+        }
+    }
+
+    function mostrarTodosProductos() {
+        const categoria = categoriaSelect.value;
+        if (!categoria) return;
+        resultadosCategoriaDiv.innerHTML = '';
+
+        const productosCategoria = Object.entries(prendas).filter(([codigo, prenda]) => codigo.startsWith(categoria));
+        productosCategoria.forEach(([codigo, prenda]) => {
+            const credito = prenda.precio;
+            const transferencia = credito * 0.8;
+            const efectivo = credito * 0.75;
+
+            const p = document.createElement('p');
+            p.innerHTML = `${codigo}: ${prenda.descripcion} <br>
+            <span>Crédito:</span> $${formatearNumero(credito)} <span>-20%:</span> $${formatearNumero(transferencia)} <span>-25%:</span> $${formatearNumero(efectivo)}`;
+            p.addEventListener('click', function() {
+                mostrarResultados(codigo);
+            });
+            resultadosCategoriaDiv.appendChild(p);
+        });
+    }
+
+    buscarBtn.addEventListener('click', function() {
+        const codigo = codigoInput.value.trim();
+        buscarProducto(codigo);
     });
-}
 
-function limpiarHistorial() {
-    localStorage.removeItem('historial');
-    mostrarHistorial();
-}
+    limpiarHistorialBtn.addEventListener('click', function() {
+        localStorage.removeItem('historial');
+        actualizarHistorial();
+    });
 
-document.addEventListener('DOMContentLoaded', mostrarHistorial);
+    buscarCategoriaBtn.addEventListener('click', function() {
+        const categoria = categoriaSelect.value;
+        buscarPorCategoria(categoria);
+    });
+
+    actualizarHistorial();
+});
+
