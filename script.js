@@ -150,81 +150,156 @@ const prendas = {
     // ...agregar más prendas según sea necesario
     };
 
-// Determinar la categoría automáticamente
-const categorias = {
-    "01": "Remeras",
-    "02": "Camisas",
-    "03": "Pantalones",
-    "04": "Buzos",
-    "05": "Chombas",
-    "06": "Camperas",
-    "07": "Perfumes, Gorras y Bufandas",
-    "08": "Cintos, Billeteras y Riñoneras",
-    "09": "Boxer, Medias y Soquetes",
-    "10": "Calzado y Zapatillas",
-    "11": "Mates, Termos, Bombillas y Canastas"
-};
+// Obtener la fecha y hora de la última actualización del script
+document.getElementById('ultima-actualizacion').textContent = `Última actualización: ${document.lastModified}`;
 
-// Mostrar la fecha de la última actualización automáticamente
-const lastUpdate = new Date(document.lastModified);
-document.getElementById("last-update").textContent = `Última actualización: ${lastUpdate.toLocaleString("es-AR")}`;
+function formatearNumero(numero) {
+    return new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(numero);
+}
 
-function consultarPrecio() {
-    const codigo = document.getElementById("codigo").value;
-    const producto = prendas[codigo];
-    if (producto) {
-        const precioCredito = producto.precio;
-        const precioDescuento20 = producto.precio * 0.8;
-        const precioDescuento25 = producto.precio * 0.75;
-        
-        document.getElementById("resultados").innerHTML = `
-            <p><strong>${codigo}: ${producto.descripcion}</strong></p>
-            <p>Crédito: $${precioCredito.toLocaleString("es-AR")}</p>
-            <p>-20%: $${precioDescuento20.toLocaleString("es-AR")}</p>
-            <p>-25%: $${precioDescuento25.toLocaleString("es-AR")}</p>
+function buscarPrecios(codigo = null) {
+    codigo = codigo || document.getElementById('codigo').value;
+    const prenda = prendas[codigo];
+
+    const resultadosDiv = document.getElementById('resultados');
+    resultadosDiv.innerHTML = '';
+
+    if (prenda) {
+        const precioCredito = prenda.precio;
+        const descripcion = prenda.descripcion;
+        const precioCuota = precioCredito / 3;
+        const precioTransferencia = precioCredito * 0.80;
+        const precioEfectivo = precioCredito * 0.75;
+
+        resultadosDiv.innerHTML = `
+            <p>${descripcion}</p>
+            <div class="credito">
+                <p>Crédito: <strong>$${formatearNumero(precioCredito)}</strong></p>
+                <p class="cuota"><strong>3 de $${formatearNumero(precioCuota)}</strong></p>
+            </div>
+            <p>Transferencia/Débito: <strong>$${formatearNumero(precioTransferencia)}</strong></p>
+            <p>Efectivo: <strong>$${formatearNumero(precioEfectivo)}</strong></p>
         `;
+
+        agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo);
     } else {
-        document.getElementById("resultados").innerHTML = "<p>Producto no encontrado</p>";
+        resultadosDiv.innerHTML = '<p>Prenda no encontrada</p>';
     }
+}
+
+function agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo) {
+    let historial = JSON.parse(localStorage.getItem('historial')) || [];
+    historial.unshift({ codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo });
+    localStorage.setItem('historial', JSON.stringify(historial));
+    mostrarHistorial();
+}
+
+function mostrarHistorial() {
+    const historialDiv = document.getElementById('historial');
+    historialDiv.innerHTML = '';
+
+    const historial = JSON.parse(localStorage.getItem('historial')) || [];
+
+    historial.forEach(item => {
+        const codigoLink = document.createElement('a');
+        codigoLink.href = '#';
+        codigoLink.textContent = `${item.codigo}: ${item.descripcion}`;
+        codigoLink.onclick = () => {
+            document.getElementById('codigo').value = item.codigo;
+            buscarPrecios(item.codigo);
+        };
+        historialDiv.appendChild(codigoLink);
+
+        const precios = document.createElement('p');
+        precios.innerHTML = `
+            <strong>Crédito:</strong> $${formatearNumero(item.precioCredito)} 
+            <strong>-20%:</strong> $${formatearNumero(item.precioTransferencia)} 
+            <strong>-25%:</strong> $${formatearNumero(item.precioEfectivo)}
+        `;
+        historialDiv.appendChild(precios);
+
+        historialDiv.appendChild(document.createElement('br'));
+    });
 }
 
 function limpiarHistorial() {
-    document.getElementById("historial").innerHTML = "";
+    localStorage.removeItem('historial');
+    mostrarHistorial();
 }
 
-function toggleProductMenu() {
-    const productMenu = document.getElementById("product-menu");
-    productMenu.classList.toggle("hidden");
-    if (!productMenu.classList.contains("hidden")) {
-        displayProducts(Object.keys(prendas));
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarHistorial();
+    mostrarTodosLosProductos();
+});
+
+function toggleMenu() {
+    const menu = document.getElementById('menuDesplegable');
+    menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
 }
 
-function displayProducts(codes) {
-    const productList = document.getElementById("product-list");
-    productList.innerHTML = codes.map(code => {
-        const producto = prendas[code];
-        const precioCredito = producto.precio;
-        const precioDescuento20 = producto.precio * 0.8;
-        const precioDescuento25 = producto.precio * 0.75;
-        
-        return `
-            <p>
-                <a href="#" onclick="consultarProducto('${code}')">${code}: ${producto.descripcion}</a>
-                Crédito: $${precioCredito.toLocaleString("es-AR")} -20%: $${precioDescuento20.toLocaleString("es-AR")} -25%: $${precioDescuento25.toLocaleString("es-AR")}
-            </p>
+function mostrarTodosLosProductos() {
+    const menuDesplegable = document.getElementById('menuDesplegable');
+    menuDesplegable.innerHTML = '';
+
+    Object.keys(prendas).forEach(codigo => {
+        const prenda = prendas[codigo];
+        const precioCredito = prenda.precio;
+        const descripcion = prenda.descripcion;
+        const precioTransferencia = precioCredito * 0.80;
+        const precioEfectivo = precioCredito * 0.75;
+
+        const codigoLink = document.createElement('a');
+        codigoLink.href = '#';
+        codigoLink.textContent = `${codigo}: ${descripcion}`;
+        codigoLink.onclick = () => {
+            document.getElementById('codigo').value = codigo;
+            buscarPrecios(codigo);
+        };
+        menuDesplegable.appendChild(codigoLink);
+
+        const precios = document.createElement('p');
+        precios.innerHTML = `
+            <strong>Crédito:</strong> $${formatearNumero(precioCredito)} 
+            <strong>-20%:</strong> $${formatearNumero(precioTransferencia)} 
+            <strong>-25%:</strong> $${formatearNumero(precioEfectivo)}
         `;
-    }).join("");
+        menuDesplegable.appendChild(precios);
+
+        menuDesplegable.appendChild(document.createElement('br'));
+    });
 }
 
-function consultarProducto(code) {
-    document.getElementById("codigo").value = code;
-    consultarPrecio();
-}
+function filtrarProductos() {
+    const categoria = document.getElementById('categoria').value;
+    const menuDesplegable = document.getElementById('menuDesplegable');
+    menuDesplegable.innerHTML = '';
 
-function filterProducts() {
-    const category = document.getElementById("category-filter").value;
-    const filteredCodes = category === "all" ? Object.keys(prendas) : Object.keys(prendas).filter(code => code.startsWith(category));
-    displayProducts(filteredCodes);
-}
+    Object.keys(prendas).forEach(codigo => {
+        if (categoria === 'all' || codigo.startsWith(categoria)) {
+            const prenda = prendas[codigo];
+            const precioCredito = prenda.precio;
+            const descripcion = prenda.descripcion;
+            const precioTransferencia = precioCredito * 0.80;
+            const precioEfectivo = precioCredito * 0.75;
 
+            const codigoLink = document.createElement('a');
+            codigoLink.href = '#';
+            codigoLink.textContent = `${codigo}: ${descripcion}`;
+            codigoLink.onclick = () => {
+                document.getElementById('codigo').value = codigo;
+                buscarPrecios(codigo);
+            };
+            menuDesplegable.appendChild(codigoLink);
+
+            const precios = document.createElement('p');
+            precios.innerHTML = `
+                <strong>Crédito:</strong> $${formatearNumero(precioCredito)} 
+                <strong>-20%:</strong> $${formatearNumero(precioTransferencia)} 
+                <strong>-25%:</strong> $${formatearNumero(precioEfectivo)}
+            `;
+            menuDesplegable.appendChild(precios);
+
+            menuDesplegable.appendChild(document.createElement('br'));
+        }
+    });
+}
