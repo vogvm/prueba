@@ -1,87 +1,84 @@
 /* Estilos generales */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #ffffff;
+    color: #000000;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    border-radius: 5px;
+    padding: 10px;
+    background-color: #ffffff;
 }
 
 .fecha-actualizacion {
     font-size: 12px;
     text-align: right;
     margin-bottom: 10px;
-    color: #666;
+    color: #666666;
 }
 
 h1, h2 {
     text-align: center;
-    color: #444;
+    color: #444444;
+    font-size: 18px;
 }
 
 .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 5px;
 }
 
 .input-group input[type="number"] {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     flex: 1;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .input-group button, .btn-limpiar, .btn-toggle {
-    padding: 10px 20px;
-    background-color: #28a745;
+    padding: 10px;
+    background-color: #dddddd;
     border: none;
-    color: #fff;
+    color: #000000;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
+    flex: 0 0 auto;
 }
 
 .input-group select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
-    margin-right: 10px;
+    font-size: 14px;
+    margin-right: 5px;
+    flex: 1;
 }
 
 .input-group button:hover, .btn-limpiar:hover, .btn-toggle:hover {
-    background-color: #218838;
+    background-color: #cccccc;
 }
 
-#resultados p {
+#resultados p.descripcion {
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     margin: 10px 0;
 }
 
-#resultados .credito {
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-#resultados .cuota {
-    font-size: 14px;
-    color: #666;
+#resultados .precio-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 5px 10px;
 }
 
 #historial a {
@@ -94,14 +91,14 @@ h1, h2 {
 #historial p {
     margin: 0;
     font-size: 14px;
-    color: #666;
+    color: #666666;
 }
 
 #menuDesplegable {
     display: none;
     padding: 10px;
     background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    border: 1px solid #dddddd;
     border-radius: 5px;
 }
 
@@ -115,5 +112,5 @@ h1, h2 {
 #menuDesplegable p {
     margin: 0;
     font-size: 14px;
-    color: #666;
+    color: #666666;
 }
