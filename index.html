@@ -15,15 +15,15 @@
             <button onclick="buscarPrecios()">Buscar</button>
         </div>
         <div id="resultados"></div>
+        <h2>Historial de Búsqueda</h2>
         <div class="input-group">
-            <h2>Historial de Búsqueda</h2>
             <button onclick="limpiarHistorial()" class="btn-limpiar">Limpiar Historial</button>
         </div>
         <div id="historial"></div>
         
         <!-- Menú Desplegable -->
+        <h2>Productos</h2>
         <div class="input-group">
-            <h2>Productos</h2>
             <select id="categoria" onchange="filtrarProductos()">
                 <option value="all">Todas las categorías</option>
                 <option value="01">Remeras</option>
@@ -38,7 +38,7 @@
                 <option value="10">Calzado y Zapatillas</option>
                 <option value="11">Mates, Termos, Bombillas y Canastas</option>
             </select>
-            <button onclick="toggleMenu()" class="btn-toggle">Mostrar/ocultar</button>
+            <button onclick="toggleMenu()" class="btn-toggle">Mostrar/Ocultar</button>
         </div>
         <div id="menuDesplegable" class="menu-desplegable"></div>
     </div>
