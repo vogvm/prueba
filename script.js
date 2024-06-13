@@ -149,6 +149,98 @@ const prendas = {
     "11011": { precio: 18625, descripcion: "Canasta" }
     // ...agregar más prendas según sea necesario
 };
+// Obtener el historial de búsquedas desde LocalStorage (si existe)
+let historialBusquedas = JSON.parse(localStorage.getItem('historialBusquedas')) || [];
+
+function guardarEnHistorial(codigo) {
+    // Agregar el código solo si no está ya en el historial
+    if (!historialBusquedas.includes(codigo)) {
+        historialBusquedas.unshift(codigo); // Agregar al principio del array
+        // Limitar el historial a las últimas 10 búsquedas
+        if (historialBusquedas.length > 10) {
+            historialBusquedas.pop(); // Eliminar el último elemento
+        }
+        localStorage.setItem('historialBusquedas', JSON.stringify(historialBusquedas));
+        mostrarHistorial(); // Actualizar el historial en la página
+    }
+}
+
+function mostrarHistorial() {
+    const historialDiv = document.getElementById('historial');
+    historialDiv.innerHTML = '';
+    if (historialBusquedas.length > 0) {
+        historialDiv.innerHTML = '<p>Historial de búsquedas:</p>';
+        const ul = document.createElement('ul');
+        historialBusquedas.forEach(codigo => {
+            const li = document.createElement('li');
+            li.textContent = codigo;
+            li.addEventListener('click', () => {
+                document.getElementById('codigo').value = codigo;
+                buscarPrecios();
+                document.getElementById('sugerencias').innerHTML = ''; // Limpiar sugerencias después de seleccionar del historial
+            });
+            ul.appendChild(li);
+        });
+        historialDiv.appendChild(ul);
+    }
+}
+
+// Función para manejar el autocompletado
+function autocompletar(input) {
+    const valor = input.value.toUpperCase();
+    const sugerencias = Object.keys(prendas).filter(codigo => codigo.startsWith(valor));
+    mostrarSugerencias(sugerencias);
+}
+
+function mostrarSugerencias(sugerencias) {
+    const sugerenciasDiv = document.getElementById('sugerencias');
+    sugerenciasDiv.innerHTML = '';
+
+    sugerencias.forEach(codigo => {
+        const opcion = document.createElement('div');
+        opcion.textContent = codigo;
+        opcion.addEventListener('click', () => {
+            document.getElementById('codigo').value = codigo;
+            buscarPrecios();
+            sugerenciasDiv.innerHTML = ''; // Limpiar sugerencias después de seleccionar
+        });
+        sugerenciasDiv.appendChild(opcion);
+    });
+}
+
+// Función para formatear los números
+function formatearNumero(numero) {
+    return new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(numero);
+}
+
+function buscarPrecios() {
+    const codigo = document.getElementById('codigo').value;
+    guardarEnHistorial(codigo); // Agregar código al historial
+
+    const precioCredito = prendas[codigo];
+    const resultadosDiv = document.getElementById('resultados');
+    resultadosDiv.innerHTML = '';
+
+    if (precioCredito !== undefined) {
+        const precioCuota = (precioCredito / 3).toFixed(2);
+        const precioTransferencia = (precioCredito * 0.80);
+        const precioEfectivo = (precioCredito * 0.75);
+
+        resultadosDiv.innerHTML = `
+            <p>${descripciones[codigo]}</p>
+            <p>Crédito</p>
+            <p>$${formatearNumero(precioCredito)}</p>
+            <p>3 de $${formatearNumero(precioCuota)}</p>
+            <p>Transferencia/Débito: $${precioTransferencia.toFixed(2).replace('.', ',')}</p>
+            <p>Efectivo: $${precioEfectivo.toFixed(2).replace('.', ',')}</p>
+        `;
+    } else {
+        resultadosDiv.innerHTML = '<p>Prenda no encontrada</p>';
+    }
+}
+
+// Llamar a esta función al cargar la página para mostrar el historial inicialmente
+mostrarHistorial();
 
 // Función para formatear los números
 function formatearNumero(numero) {
