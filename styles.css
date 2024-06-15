@@ -81,12 +81,8 @@ h1, h2 {
     padding: 5px 10px;
 }
 
-#resultados .precio-item .forma-pago {
-    font-weight: normal;
-}
-
-#resultados .precio-item .precios {
-    text-align: right;
+#resultados .precio-item span:nth-child(2) {
+    margin-left: auto;
 }
 
 .limpiar-historial-group {
