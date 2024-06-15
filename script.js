@@ -174,28 +174,29 @@ function buscarPrecios(codigo = null) {
         const precioEfectivo = precioCredito * 0.75;
 
         resultadosDiv.innerHTML = `
-            <p class="descripcion">${descripcion}</p>
-            <div class="precio-item">
-                <span>Crédito:</span>
-                <span>$${formatearNumero(precioCredito)}</span>
-            </div>
-            <div class="precio-item">
-                <span>3 de</span>
-                <span>$${formatearNumero(precioCuota)}</span>
-            </div>
-            <div class="precio-item">
-                <span>6 de</span>
-                <span>$${formatearNumero(precioCuota1)}</span>
-            </div>
-            <div class="precio-item">
-                <span>Transferencia/Débito:</span>
-                <span>$${formatearNumero(precioTransferencia)}</span>
-            </div>
-            <div class="precio-item">
-                <span>Efectivo:</span>
-                <span>$${formatearNumero(precioEfectivo)}</span>
-            </div>
-        `;
+        <p class="descripcion">${descripcion}</p>
+        <div class="precio-item">
+            <span>Crédito:</span>
+            <span><strong>$${formatearNumero(precioCredito)}</strong></span>
+        </div>
+        <div class="precio-item">
+            <span></span>
+            <span>3 de <strong>$${formatearNumero(precioCuota)}</strong></span>
+        </div>
+        <div class="precio-item">
+            <span></span>
+            <span>6 de <strong>$${formatearNumero(precioCuota1)}</strong></span>
+        </div>
+        <div class="precio-item">
+            <span>Transferencia/Débito:</span>
+            <span><strong>$${formatearNumero(precioTransferencia)}</strong></span>
+        </div>
+        <div class="precio-item">
+            <span>Efectivo:</span>
+            <span><strong>$${formatearNumero(precioEfectivo)}</strong></span>
+        </div>
+    `;
+}
 
         agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo);
     } else {
