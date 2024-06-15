@@ -76,7 +76,7 @@ const prendas = {
     "04008": { precio: 53750, descripcion: "Vancouver Basic/Medium" },
     "04009": { precio: 48750, descripcion: "Vancouver Basic/Medium" },
     "04010": { precio: 48750, descripcion: "Bascope" },
-    "04011": { precio: 0, descripcion: "-" },
+    "04011": { precio: 58750, descripcion: "Rompe viento Cara Cruz" },
     "04012": { precio: 49125, descripcion: "Bross canguro" },
     "04013": { precio: 46250, descripcion: "Bross cinta" },
     "04014": { precio: 69000, descripcion: "Bross canguro over" },
@@ -88,7 +88,7 @@ const prendas = {
     "05003": { precio: 24375, descripcion: "Piqué Bross" },
     "05004": { precio: 24375, descripcion: "Algodón Bross" },
     "06001": { precio: 36250, descripcion: "Algodón Dogma c/friza" },
-    "06002": { precio: 37375, descripcion: "Plush Cara Cruz" },
+    "06002": { precio: 40000, descripcion: "Plush Cara Cruz" },
     "06003": { precio: 61875, descripcion: "Alcolchada Cara Cruz" },
     "06004": { precio: 43750, descripcion: "Rústica Cara Cruz" },
     "06005": { precio: 34875, descripcion: "Rústica Tukson" },
@@ -105,6 +105,7 @@ const prendas = {
     "06016": { precio: 40000, descripcion: "Rústica Bascope" },
     "06017": { precio: 75000, descripcion: "Eco cuero" },
     "06018": { precio: 56250, descripcion: "Camisaco corderoy Hands" },
+    "06019": { precio: 56250, descripcion: "Camisaco paño" },
     "07001": { precio: 17000, descripcion: "Perfume Tukson" },
     "07002": { precio: 17500, descripcion: "Gorra Vancouver" },
     "07003": { precio: 21250, descripcion: "Perfume Cara Cruz" },
@@ -168,28 +169,33 @@ function buscarPrecios(codigo = null) {
         const precioCredito = prenda.precio;
         const descripcion = prenda.descripcion;
         const precioCuota = precioCredito / 3;
+        const precioCuota1 = precioCredito / 6;
         const precioTransferencia = precioCredito * 0.80;
         const precioEfectivo = precioCredito * 0.75;
 
         resultadosDiv.innerHTML = `
-    <p class="descripcion">${descripcion}</p>
-    <div class="precio-item">
-        <span>Crédito:</span>
-        <span><strong>$${formatearNumero(precioCredito)}</strong></span>
-    </div>
-    <div class="precio-item-cuota">
-        <span>3 de:</span>
-        <span><strong>$${formatearNumero(precioCuota)}</strong></span>
-    </div>
-    <div class="precio-item">
-        <span>Transferencia/Débito:</span>
-        <span><strong>$${formatearNumero(precioTransferencia)}</strong></span>
-    </div>
-    <div class="precio-item">
-        <span>Efectivo:</span>
-        <span><strong>$${formatearNumero(precioEfectivo)}</strong></span>
-    </div>
-`;
+            <p class="descripcion">${descripcion}</p>
+            <div class="precio-item">
+                <span>Crédito:</span>
+                <span>$${formatearNumero(precioCredito)}</span>
+            </div>
+            <div class="precio-item">
+                <span>3 de</span>
+                <span>$${formatearNumero(precioCuota)}</span>
+            </div>
+            <div class="precio-item">
+                <span>6 de</span>
+                <span>$${formatearNumero(precioCuota1)}</span>
+            </div>
+            <div class="precio-item">
+                <span>Transferencia/Débito:</span>
+                <span>$${formatearNumero(precioTransferencia)}</span>
+            </div>
+            <div class="precio-item">
+                <span>Efectivo:</span>
+                <span>$${formatearNumero(precioEfectivo)}</span>
+            </div>
+        `;
 
         agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo);
     } else {
