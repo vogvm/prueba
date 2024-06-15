@@ -76,18 +76,17 @@ h1, h2 {
 
 #resultados .precio-item {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     font-size: 16px;
     padding: 5px 10px;
 }
 
-#resultados .precio-item .precio {
-    font-weight: bold;
+#resultados .precio-item .forma-pago {
+    font-weight: normal;
 }
 
-#resultados .precio-item .cuotas {
+#resultados .precio-item .precios {
     text-align: right;
-    margin-top: 5px;
 }
 
 .limpiar-historial-group {
