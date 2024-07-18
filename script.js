@@ -149,7 +149,7 @@ const prendas = {
     "11010": { precio: 5500, descripcion: "Bombilla torneada" },
     "11011": { precio: 18625, descripcion: "Canasta" }
     // ...agregar más prendas según sea necesario
-    };
+};
 
 // Obtener la fecha y hora de la última actualización del script
 document.getElementById('ultima-actualizacion').textContent = `Última actualización: ${document.lastModified}`;
@@ -174,29 +174,28 @@ function buscarPrecios(codigo = null) {
         const precioEfectivo = precioCredito * 0.75;
 
         resultadosDiv.innerHTML = `
-        <p class="descripcion">${descripcion}</p>
-        <div class="precio-item">
-            <span>Crédito:</span>
-            <span><strong>$${formatearNumero(precioCredito)}</strong></span>
-        </div>
-        <div class="precio-item">
-            <span></span>
-            <span>3 de <strong>$${formatearNumero(precioCuota)}</strong></span>
-        </div>
-        <div class="precio-item">
-            <span></span>
-            <span>6 de <strong>$${formatearNumero(precioCuota1)}</strong></span>
-        </div>
-        <div class="precio-item">
-            <span>Transferencia/Débito:</span>
-            <span><strong>$${formatearNumero(precioTransferencia)}</strong></span>
-        </div>
-        <div class="precio-item">
-            <span>Efectivo:</span>
-            <span><strong>$${formatearNumero(precioEfectivo)}</strong></span>
-        </div>
-    `;
-}
+            <p class="descripcion">${descripcion}</p>
+            <div class="precio-item">
+                <span>Crédito:</span>
+                <span><strong> $${formatearNumero(precioCredito)} </strong></span>
+            </div>
+            <div class="precio-item">
+                <span></span>
+                <span>3 de <strong>$${formatearNumero(precioCuota)}</strong></span>
+            </div>
+            <div class="precio-item">
+                <span></span>
+                <span>6 de <strong>$${formatearNumero(precioCuota1)}</strong></span>
+            </div>
+            <div class="precio-item">
+                <span>Transferencia/Débito:</span>
+                <span><strong>$${formatearNumero(precioTransferencia)}</strong></span>
+            </div>
+            <div class="precio-item">
+                <span>Efectivo:</span>
+                <span><strong>$${formatearNumero(precioEfectivo)}</strong></span>
+            </div>
+        `;
 
         agregarAlHistorial(codigo, descripcion, precioCredito, precioTransferencia, precioEfectivo);
     } else {
@@ -247,6 +246,7 @@ function limpiarHistorial() {
 document.addEventListener('DOMContentLoaded', () => {
     mostrarHistorial();
     mostrarTodosLosProductos();
+    iniciarEscaner();
 });
 
 function toggleMenu() {
@@ -320,3 +320,35 @@ function filtrarProductos() {
         }
     });
 }
+
+// Función para iniciar el escáner
+function iniciarEscaner() {
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const scanButton = document.getElementById('scanButton');
+
+    // Pedir permiso para usar la cámara
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+        .then((stream) => {
+            video.srcObject = stream;
+        })
+        .catch((err) => {
+            console.error('Error al acceder a la cámara: ', err);
+        });
+
+    // Escanear código cuando se hace click en el botón
+    scanButton.addEventListener('click', () => {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        Tesseract.recognize(canvas, 'eng', { logger: (m) => console.log(m) })
+            .then(({ data: { text } }) => {
+                const codigo = text.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+                document.getElementById('codigo').value = codigo;
+                buscarPrecios(codigo);
+            })
+            .catch((err) => {
+                console.error('Error al reconocer el texto: ', err);
+            });
+    });
+}
+
