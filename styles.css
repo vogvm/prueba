@@ -1,124 +1,116 @@
-/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    color: #000000;
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    background-color: #f7f7f7;
 }
 
 .container {
-    max-width: 100%;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 10px;
-    background-color: #ffffff;
-}
-
-.fecha-actualizacion {
-    font-size: 12px;
-    text-align: right;
-    margin-bottom: 10px;
-    color: #666666;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h1, h2 {
     text-align: center;
-    color: #444444;
-    font-size: 18px;
 }
 
 .input-group {
-    margin-bottom: 10px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5px;
-}
-
-.input-group input[type="number"] {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    flex: 1;
-    margin-right: 5px;
-}
-
-.input-group button, .btn-limpiar, .btn-toggle {
-    padding: 10px;
-    background-color: #dddddd;
-    border: none;
-    color: #000000;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    flex: 0 0 auto;
-}
-
-.input-group select {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    margin-right: 5px;
-    flex: 1;
-}
-
-.input-group button:hover, .btn-limpiar:hover, .btn-toggle:hover {
-    background-color: #cccccc;
-}
-
-#resultados p.descripcion {
-    text-align: center;
-    font-size: 16px;
+    justify-content: center;
     margin: 10px 0;
 }
 
-#resultados .precio-item {
+.input-group input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.input-group button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+}
+
+.input-group button:hover {
+    background: #0056b3;
+}
+
+#resultados p {
+    font-size: 18px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.precio-item {
     display: flex;
     justify-content: space-between;
+    margin: 10px 0;
+}
+
+.precio-item span {
     font-size: 16px;
-    padding: 5px 10px;
-}
-
-#resultados .precio-item span:nth-child(2) {
-    margin-left: auto;
-}
-
-.limpiar-historial-group {
-    justify-content: flex-end;
 }
 
 #historial a {
+    display: block;
     color: #007bff;
     text-decoration: none;
-    display: block;
-    margin: 10px 0;
+}
+
+#historial a:hover {
+    text-decoration: underline;
 }
 
 #historial p {
     margin: 0;
-    font-size: 14px;
-    color: #666666;
 }
 
-#menuDesplegable {
+.btn-limpiar {
+    background-color: #dc3545;
+}
+
+.btn-limpiar:hover {
+    background-color: #c82333;
+}
+
+.menu-desplegable {
     display: none;
+    border: 1px solid #ddd;
     padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
+    margin-top: 10px;
+    background: #fff;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
-#menuDesplegable a {
+.menu-desplegable a {
+    display: block;
+    padding: 5px 0;
     color: #007bff;
     text-decoration: none;
-    display: block;
-    margin: 10px 0;
 }
 
-#menuDesplegable p {
-    margin: 0;
-    font-size: 14px;
-    color: #666666;
+.menu-desplegable a:hover {
+    text-decoration: underline;
+}
+
+#video {
+    width: 100%;
+    display: none;
+    margin-top: 10px;
+}
+
+#canvas {
+    display: none;
 }
