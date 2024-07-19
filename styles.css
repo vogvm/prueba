@@ -1,116 +1,154 @@
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
     margin: 0;
-    padding: 20px;
-    background-color: #f7f7f7;
+    padding: 0;
 }
 
 .container {
-    max-width: 600px;
+    max-width: 95%;
     margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.fecha-actualizacion {
+    font-size: 12px;
+    text-align: right;
+    margin-bottom: 10px;
+    color: #666666;
 }
 
 h1, h2 {
     text-align: center;
+    color: #444444;
+    font-size: 18px;
 }
 
 .input-group {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-}
-
-.input-group input {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px 0 0 4px;
-    outline: none;
-}
-
-.input-group button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    background: #007bff;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 0 4px 4px 0;
-}
-
-.input-group button:hover {
-    background: #0056b3;
-}
-
-#resultados p {
-    font-size: 18px;
-    text-align: center;
-    margin: 10px 0;
-}
-
-.precio-item {
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.input-group input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    flex: 1;
+    margin-right: 5px;
+}
+
+.input-group button, .btn-limpiar, .btn-toggle {
+    padding: 10px;
+    background-color: #dddddd;
+    border: none;
+    color: #000000;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+.input-group select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+    flex: 1;
+}
+
+.input-group button:hover, .btn-limpiar:hover, .btn-toggle:hover {
+    background-color: #cccccc;
+}
+
+#resultados p.descripcion {
+    text-align: center;
+    font-size: 16px;
     margin: 10px 0;
 }
 
-.precio-item span {
+#resultados .precio-item {
+    display: flex;
+    justify-content: space-between;
     font-size: 16px;
+    padding: 5px 10px;
+}
+
+.limpiar-historial-group {
+    justify-content: flex-end;
 }
 
 #historial a {
-    display: block;
     color: #007bff;
     text-decoration: none;
-}
-
-#historial a:hover {
-    text-decoration: underline;
+    display: block;
+    margin: 10px 0;
 }
 
 #historial p {
     margin: 0;
+    font-size: 14px;
+    color: #666666;
 }
 
-.btn-limpiar {
-    background-color: #dc3545;
-}
-
-.btn-limpiar:hover {
-    background-color: #c82333;
-}
-
-.menu-desplegable {
+#menuDesplegable {
     display: none;
-    border: 1px solid #ddd;
     padding: 10px;
-    margin-top: 10px;
-    background: #fff;
-    max-height: 400px;
-    overflow-y: auto;
+    background-color: #f9f9f9;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
 }
 
-.menu-desplegable a {
-    display: block;
-    padding: 5px 0;
+#menuDesplegable a {
     color: #007bff;
     text-decoration: none;
+    display: block;
+    margin: 10px 0;
 }
 
-.menu-desplegable a:hover {
-    text-decoration: underline;
+#menuDesplegable p {
+    margin: 0;
+    font-size: 14px;
+    color: #666666;
+}
+/* Estilos para el presupuesto */
+.btn-añadir {
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
 }
 
-#video {
+.btn-añadir:hover {
+    background-color: #45a049;
+}
+
+#presupuesto {
+    margin-top: 20px;
+}
+
+#tabla-presupuesto {
     width: 100%;
-    display: none;
+    border-collapse: collapse;
     margin-top: 10px;
 }
 
-#canvas {
-    display: none;
+#tabla-presupuesto th, #tabla-presupuesto td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#tabla-presupuesto th {
+    background-color: #f2f2f2;
 }
