@@ -53,30 +53,30 @@ const prendas = {
     "03016": { precio: 40750, descripcion: "Corte chino Fusston" },
     "03017": { precio: 66250, descripcion: "Cargos Marron Cara Cruz" },
     "03018": { precio: 33750, descripcion: "Babucha algodón SKR" },
-    "03019": { precio: 24375, descripcion: "Bermu jeans rígida Fusston" },
-    "03020": { precio: 29125, descripcion: "Bermu jeans cargo Fusston" },
-    "03021": { precio: 24375, descripcion: "Bermu jeans elasti Sodio" },
-    "03022": { precio: 24375, descripcion: "Bermu jeans chupin Fusston c/rot" },
-    "03023": { precio: 42500, descripcion: "Jeans jogger Hong Kong c/rot" },
-    "03024": { precio: 42500, descripcion: "Jeans jogger Fusston c/rot" },
+    "03019": { precio: 40000, descripcion: "Joggin Handsome" },
+    "03020": { precio: 52500, descripcion: "Jean Bascope" },
+    "03021": { precio: 0, descripcion: "Bermu jeans elasti Sodio" },
+    "03022": { precio: 0, descripcion: "Bermu jeans chupin Fusston c/rot" },
+    "03023": { precio: 40000, descripcion: "Jeans jogger Hong Kong c/rot" },
+    "03024": { precio: 40000, descripcion: "Jeans jogger Fusston c/rot" },
     "03025": { precio: 50625, descripcion: "Jeans jogger Cara Crus c/rot" },
-    "03026": { precio: 33125, descripcion: "Bermuda vestir Cara Cruz verde" },
-    "03027": { precio: 26500, descripcion: "Bermuda chino Fusston" },
-    "03028": { precio: 35750, descripcion: "Bermu jeans mon Cara Cruz" },
-    "03029": { precio: 37125, descripcion: "Bermu jeans mon Vancouver c/rot" },
-    "03030": { precio: 37375, descripcion: "Bermu cargo Vancouver" },
-    "03031": { precio: 24375, descripcion: "Bermu jeans chupin Cara Cruz" },
+    "03026": { precio: 0, descripcion: "Bermuda vestir Cara Cruz verde" },
+    "03027": { precio: 0, descripcion: "Bermuda chino Fusston" },
+    "03028": { precio: 0, descripcion: "Bermu jeans mon Cara Cruz" },
+    "03029": { precio: 0, descripcion: "Bermu jeans mon Vancouver c/rot" },
+    "03030": { precio: 0, descripcion: "Bermu cargo Vancouver" },
+    "03031": { precio: 0, descripcion: "Bermu jeans chupin Cara Cruz" },
     "04001": { precio: 40000, descripcion: "Rústico Tukson c/capucha" },
     "04002": { precio: 43750, descripcion: "Rústico Tukson c/capucha" },
     "04003": { precio: 37500, descripcion: "Liviano Cara Cruz" },
     "04004": { precio: 30000, descripcion: "Bascope" },
-    "04005": { precio: 51750, descripcion: "Bascope c/capucha" },
+    "04005": { precio: 48750, descripcion: "Bascope c/capucha" },
     "04006": { precio: 30000, descripcion: "Rústico Dogma" },
     "04007": { precio: 25000, descripcion: "Sueter Guafle" },
     "04008": { precio: 53750, descripcion: "Vancouver Basic/Medium" },
     "04009": { precio: 48750, descripcion: "Vancouver Basic/Medium" },
     "04010": { precio: 48750, descripcion: "Bascope" },
-    "04011": { precio: 58750, descripcion: "Rompe viento Cara Cruz" },
+    "04011": { precio: 40000, descripcion: "Plush Cara Cruz" },
     "04012": { precio: 49125, descripcion: "Bross canguro" },
     "04013": { precio: 46250, descripcion: "Bross cinta" },
     "04014": { precio: 69000, descripcion: "Bross canguro over" },
@@ -88,7 +88,7 @@ const prendas = {
     "05003": { precio: 24375, descripcion: "Piqué Bross" },
     "05004": { precio: 24375, descripcion: "Algodón Bross" },
     "06001": { precio: 36250, descripcion: "Algodón Dogma c/friza" },
-    "06002": { precio: 40000, descripcion: "Plush Cara Cruz" },
+    "06002": { precio: 50000, descripcion: "Plush Cara Cruz" },
     "06003": { precio: 61875, descripcion: "Alcolchada Cara Cruz" },
     "06004": { precio: 43750, descripcion: "Rústica Cara Cruz" },
     "06005": { precio: 34875, descripcion: "Rústica Tukson" },
@@ -98,36 +98,39 @@ const prendas = {
     "06009": { precio: 47250, descripcion: "Algodón SKR tejida" },
     "06010": { precio: 44000, descripcion: "Algodón Cara Cruz" },
     "06011": { precio: 56250, descripcion: "Bengalina Cara Cruz" },
-    "06012": { precio: 87500, descripcion: "Chaleco SKR abrigo" },
-    "06013": { precio: 98000, descripcion: "Puffer engo.Handsome" },
+    "06012": { precio: 80000, descripcion: "Chaleco SKR abrigo" },
+    "06013": { precio: 90000, descripcion: "Puffer engo.Handsome" },
     "06014": { precio: 81250, descripcion: "Puffer Handsome verde" },
-    "06015": { precio: 105500, descripcion: "Puffer Handsome gris" },
-    "06016": { precio: 40000, descripcion: "Rústica Bascope" },
+    "06015": { precio: 87500, descripcion: "Puffer Handsome gris" },
+    "06016": { precio: 36250, descripcion: "Rústica Bascope" },
     "06017": { precio: 75000, descripcion: "Eco cuero" },
     "06018": { precio: 56250, descripcion: "Camisaco corderoy Hands" },
-    "06019": { precio: 56250, descripcion: "Camisaco paño" },
+    "06019": { precio: 62500, descripcion: "Camisaco paño" },
+    "06020": { precio: 111250, descripcion: "Conjunto Neoprene" },
     "07001": { precio: 17000, descripcion: "Perfume Tukson" },
-    "07002": { precio: 17500, descripcion: "Gorra Vancouver" },
+    "07002": { precio: 11875, descripcion: "Gorra Vancouver" },
     "07003": { precio: 21250, descripcion: "Perfume Cara Cruz" },
     "07004": { precio: 26500, descripcion: "Perfume Bross London" },
     "07005": { precio: 18000, descripcion: "Gorro lana" },
-    "07006": { precio: 20000, descripcion: "Bufanda/cuello" },
+    "07006": { precio: 18000, descripcion: "Bufanda/cuello" },
     "07007": { precio: 17500, descripcion: "Gorra gastada" },
     "08001": { precio: 18625, descripcion: "Cinto Punta&Taco Negro" },
     "08002": { precio: 0, descripcion: "-" },
     "08003": { precio: 0, descripcion: "-" },
     "08004": { precio: 0, descripcion: "-" },
-    "08005": { precio: 0, descripcion: "-" },
+    "08005": { precio: 25000, descripcion: "Billetera con cierre" },
     "08006": { precio: 19375, descripcion: "Billetera Punta&Taco" },
     "08007": { precio: 11875, descripcion: "Billetera Punta&Taco c/recorte" },
-    "08008": { precio: 22000, descripcion: "Cinto Bross" },
+    "08008": { precio: 18625, descripcion: "Cinto Bross" },
     "08009": { precio: 22500, descripcion: "Riñonera PU Bross" },
     "09001": { precio: 4900, descripcion: "Media Bross" },
     "09002": { precio: 4300, descripcion: "Soquete clásico Bross" },
     "09003": { precio: 3750, descripcion: "Soquete invisible Bross" },
     "09004": { precio: 10125, descripcion: "Soquete invisible Bross pack/3" },
-    "09005": { precio: 13125, descripcion: "Boxer XY liso" },
-    "09006": { precio: 14375, descripcion: "Boxer XY estampado" },
+    "09005": { precio: 13250, descripcion: "Boxer XY liso" },
+    "09006": { precio: 14750, descripcion: "Boxer XY estampado" },
+    "09007": { precio: 3750, descripcion: "Media clásica Elemento" },
+    "09008": { precio: 13250, descripcion: "Slip XY" },
     "10001": { precio: 44500, descripcion: "Zapas Recife Roma B." },
     "10002": { precio: 44500, descripcion: "Zapas Recife Roma N." },
     "10003": { precio: 44500, descripcion: "Zapas Recife Roma N.car." },
@@ -149,7 +152,7 @@ const prendas = {
     "11010": { precio: 5500, descripcion: "Bombilla torneada" },
     "11011": { precio: 18625, descripcion: "Canasta" }
     // ...agregar más prendas según sea necesario
-};
+    };
 
 // Obtener la fecha y hora de la última actualización del script
 document.getElementById('ultima-actualizacion').textContent = `Última actualización: ${document.lastModified}`;
@@ -246,7 +249,6 @@ function limpiarHistorial() {
 document.addEventListener('DOMContentLoaded', () => {
     mostrarHistorial();
     mostrarTodosLosProductos();
-    iniciarEscaner();
 });
 
 function toggleMenu() {
@@ -320,35 +322,109 @@ function filtrarProductos() {
         }
     });
 }
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('calcular').addEventListener('click', calcular);
+    document.getElementById('limpiar-historial').addEventListener('click', limpiarHistorial);
+    document.getElementById('toggle-menu').addEventListener('click', toggleMenu);
+    document.getElementById('añadir').addEventListener('click', añadirAlPresupuesto);
+    document.getElementById('toggle-presupuesto').addEventListener('click', togglePresupuesto);
 
-// Función para iniciar el escáner
-function iniciarEscaner() {
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-    const scanButton = document.getElementById('scanButton');
+    function calcular() {
+        var input1 = document.getElementById('input1').value;
+        var input2 = document.getElementById('input2').value;
+        var resultado = input1 * input2;
+        var resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = '<p class="descripcion">Resultado: ' + resultado + '</p>';
+    }
 
-    // Pedir permiso para usar la cámara
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-        .then((stream) => {
-            video.srcObject = stream;
-        })
-        .catch((err) => {
-            console.error('Error al acceder a la cámara: ', err);
-        });
+    function limpiarHistorial() {
+        var historialDiv = document.getElementById('historial');
+        historialDiv.innerHTML = '';
+    }
 
-    // Escanear código cuando se hace click en el botón
-    scanButton.addEventListener('click', () => {
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        Tesseract.recognize(canvas, 'eng', { logger: (m) => console.log(m) })
-            .then(({ data: { text } }) => {
-                const codigo = text.replace(/\D/g, ''); // Eliminar caracteres no numéricos
-                document.getElementById('codigo').value = codigo;
-                buscarPrecios(codigo);
-            })
-            .catch((err) => {
-                console.error('Error al reconocer el texto: ', err);
-            });
-    });
-}
+    function toggleMenu() {
+        var menu = document.getElementById('menuDesplegable');
+        if (menu.style.display === 'none' || menu.style.display === '') {
+            menu.style.display = 'block';
+        } else {
+            menu.style.display = 'none';
+        }
+    }
 
+    function añadirAlPresupuesto() {
+        var codigo = "01001";  // Reemplaza esto con el código dinámico del producto
+        var categoria = "Clásica c/est. Bross";  // Reemplaza esto con la categoría dinámica del producto
+        var precioCredito = 17000;  // Reemplaza esto con el precio dinámico del producto
+        var precio20 = precioCredito * 0.8;
+        var precio25 = precioCredito * 0.75;
+
+        var tabla = document.getElementById('tabla-presupuesto').getElementsByTagName('tbody')[0];
+        var fila = tabla.insertRow();
+
+        // Botón para eliminar
+        var celdaEliminar = fila.insertCell(0);
+        var botonEliminar = document.createElement('button');
+        botonEliminar.textContent = 'Eliminar';
+        botonEliminar.onclick = function () {
+            tabla.deleteRow(fila.rowIndex - 1);
+            actualizarTotales();
+        };
+        celdaEliminar.appendChild(botonEliminar);
+
+        // Código
+        var celdaCodigo = fila.insertCell(1);
+        celdaCodigo.textContent = codigo;
+
+        // Categoría
+        var celdaCategoria = fila.insertCell(2);
+        celdaCategoria.textContent = categoria;
+
+        // Precio Crédito
+        var celdaCredito = fila.insertCell(3);
+        celdaCredito.textContent = '$' + precioCredito.toFixed(2);
+
+        // Precio -20%
+        var celda20 = fila.insertCell(4);
+        celda20.textContent = '$' + precio20.toFixed(2);
+
+        // Precio -25%
+        var celda25 = fila.insertCell(5);
+        celda25.textContent = '$' + precio25.toFixed(2);
+
+        actualizarTotales();
+    }
+
+    function togglePresupuesto() {
+        var presupuesto = document.getElementById('presupuesto');
+        if (presupuesto.style.display === 'none' || presupuesto.style.display === '') {
+            presupuesto.style.display = 'block';
+        } else {
+            presupuesto.style.display = 'none';
+        }
+    }
+
+    function actualizarTotales() {
+        var tabla = document.getElementById('tabla-presupuesto').getElementsByTagName('tbody')[0];
+        var filas = tabla.getElementsByTagName('tr');
+        var totalProductos = filas.length;
+        var totalCredito = 0;
+        var total20 = 0;
+        var total25 = 0;
+
+        for (var i = 0; i < filas.length; i++) {
+            var celdas = filas[i].getElementsByTagName('td');
+            totalCredito += parseFloat(celdas[3].textContent.replace('$', ''));
+            total20 += parseFloat(celdas[4].textContent.replace('$', ''));
+            total25 += parseFloat(celdas[5].textContent.replace('$', ''));
+        }
+
+        document.getElementById('total-productos').textContent = totalProductos;
+        document.getElementById('total-credito').textContent = '$' + totalCredito.toFixed(2);
+        document.getElementById('total-20').textContent = '$' + total20.toFixed(2);
+        document.getElementById('total-25').textContent = '$' + total25.toFixed(2);
+    }
+
+    var fechaActualizacion = document.getElementById('fecha-actualizacion');
+    var fecha = new Date();
+    fechaActualizacion.textContent = fecha.toLocaleDateString();
+});
